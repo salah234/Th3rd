@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* --- Light palette --- */
+:root {
+  --ivory: #FDFBF7;
+  --cream: #FAF6EF;
+  --sand: #E8E0D5;
+  --warm-white: #F5F2EE;
+  --champagne: #EDD9B4;
+  --taupe: #8C7B6B;
+  --stone: #9E9289;
+  --charcoal: #2C2A28;
+  --ink: #1A1816;
+  --soft-gold: #C9A96E;
+  --dark-gold: #A88548;
+
+  /* Dark-palette tokens (used as dark: utilities) */
+  --dk-base: #1C1A18;
+  --dk-alt: #222019;
+  --dk-surface: #282522;
+  --dk-deep: #0E0D0C;
+  --dk-text: #EFE9E1;
+  --dk-muted: #A89990;
+  --dk-subtle: #6D6360;
+  --dk-border: #383230;
+
+  /* Inline-style overrides for dark mode */
+  --hero-texture: radial-gradient(ellipse at 60% 40%, #EDD9B420 0%, transparent 60%),
+    linear-gradient(135deg, #FAF6EF 0%, #E8D5B730 50%, #FAF6EF 100%);
+  --brand-block-bg: linear-gradient(160deg, #EDD9B4 0%, #E8E0D5 40%, #D4CDBA 100%);
+}
+
+/* Class-based dark mode (applied to <html> by ThemeProvider) */
+.dark {
+  --hero-texture: radial-gradient(ellipse at 60% 40%, #C9A96E08 0%, transparent 60%),
+    linear-gradient(135deg, #1C1A18 0%, #282522 50%, #1C1A18 100%);
+  --brand-block-bg: linear-gradient(160deg, #282522 0%, #302D2A 40%, #252220 100%);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-warm-white: var(--warm-white);
+  --color-champagne: var(--champagne);
+  --color-taupe: var(--taupe);
+  --color-stone: var(--stone);
+  --color-charcoal: var(--charcoal);
+  --color-ink: var(--ink);
+  --color-soft-gold: var(--soft-gold);
+  --color-dark-gold: var(--dark-gold);
+
+  /* Dark-palette utilities */
+  --color-dk-base: var(--dk-base);
+  --color-dk-alt: var(--dk-alt);
+  --color-dk-surface: var(--dk-surface);
+  --color-dk-deep: var(--dk-deep);
+  --color-dk-text: var(--dk-text);
+  --color-dk-muted: var(--dk-muted);
+  --color-dk-subtle: var(--dk-subtle);
+  --color-dk-border: var(--dk-border);
+
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-dm-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body {
+  background-color: var(--dk-base);
+  color: var(--dk-text);
+}
+
+::selection {
+  background-color: var(--champagne);
+  color: var(--charcoal);
+}
+
+.dark ::selection {
+  background-color: var(--dk-border);
+  color: var(--dk-text);
+}
