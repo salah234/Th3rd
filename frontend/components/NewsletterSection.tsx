@@ -13,9 +13,20 @@ export default function NewsletterSection() {
     if (!email || status === "loading") return;
 
     setStatus("loading");
-    // Subscriber creation hook — connect to backend /api/subscribers
+    // 🔌 FASTAPI INTEGRATION POINT — Subscriber creation.
+    // Replace the placeholder below with a real call to the FastAPI backend:
+    //   POST /api/subscribers   body: { email }   -> Subscriber (see lib/types.ts)
+    // This runs in the browser, so use a public base URL:
+    //   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    // Example:
+    //   const res = await fetch(`${API_URL}/api/subscribers`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ email }),
+    //   });
+    //   if (!res.ok) throw new Error("Subscribe failed");
     try {
-      await new Promise((res) => setTimeout(res, 800)); // placeholder
+      await new Promise((res) => setTimeout(res, 800)); // placeholder — remove once wired
       setStatus("success");
       setEmail("");
     } catch {

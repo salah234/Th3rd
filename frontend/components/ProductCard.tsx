@@ -159,12 +159,12 @@ export default function ProductCard({ item, index = 0 }: ProductCardProps) {
 
 function generatePlaceholderGradient(id: string): string {
   const palettes = [
-    "linear-gradient(140deg, #EDD9B4 0%, #F5F2EE 50%, #E8D5B7 100%)",
-    "linear-gradient(140deg, #E8E0D5 0%, #FAF6EF 50%, #EDD9B4 100%)",
-    "linear-gradient(140deg, #D4CDBA 0%, #EDE8E0 50%, #D8D0C4 100%)",
-    "linear-gradient(140deg, #C9BBA8 0%, #E8E0D5 50%, #D4CDBA 100%)",
-    "linear-gradient(140deg, #E2D8CC 0%, #F5F2EE 50%, #EAE0D4 100%)",
-    "linear-gradient(140deg, #D9C9B5 0%, #F0EBE3 50%, #E2D5C5 100%)",
+    "linear-gradient(140deg, #FAD6E3 0%, #FFF0F4 50%, #F6C8DB 100%)",
+    "linear-gradient(140deg, #F6DBE5 0%, #FFF6F9 50%, #FAD6E3 100%)",
+    "linear-gradient(140deg, #F1C3D4 0%, #FDECF2 50%, #F4CCDC 100%)",
+    "linear-gradient(140deg, #EFB8CD 0%, #FBDEE8 50%, #F1C3D4 100%)",
+    "linear-gradient(140deg, #FAD0E0 0%, #FFF0F4 50%, #F6CEDD 100%)",
+    "linear-gradient(140deg, #F2C2D5 0%, #FCE6EE 50%, #F4CEDD 100%)",
   ];
   const index = id.charCodeAt(0) % palettes.length;
   return palettes[index];

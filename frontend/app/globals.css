@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
-/* --- Light palette --- */
+/* --- Light palette (deeper rose-pink, natural contrast ladder) --- */
 :root {
-  --ivory: #FDFBF7;
-  --cream: #FAF6EF;
-  --sand: #E8E0D5;
-  --warm-white: #F5F2EE;
-  --champagne: #EDD9B4;
-  --taupe: #8C7B6B;
-  --stone: #9E9289;
-  --charcoal: #2C2A28;
-  --ink: #1A1816;
-  --soft-gold: #C9A96E;
-  --dark-gold: #A88548;
+  --ivory: #F6CADB;        /* page bg — light rose */
+  --cream: #F1BACF;        /* alt section — a step deeper */
+  --sand: #E29BB6;         /* borders/dividers — visible mid rose */
+  --warm-white: #F3C2D5;
+  --champagne: #EFAAC8;    /* highlights */
+  --taupe: #80576A;        /* secondary text — deep mauve */
+  --stone: #9B7080;        /* muted captions/labels */
+  --charcoal: #341F29;     /* primary text — deep plum */
+  --ink: #241620;          /* darkest — CTA/footer ground */
+  --soft-gold: #BC4A70;    /* accent — raspberry that pops */
+  --dark-gold: #9C3458;    /* accent hover */
 
-  /* Dark-palette tokens (used as dark: utilities) */
-  --dk-base: #1C1A18;
-  --dk-alt: #222019;
-  --dk-surface: #282522;
-  --dk-deep: #0E0D0C;
-  --dk-text: #EFE9E1;
-  --dk-muted: #A89990;
-  --dk-subtle: #6D6360;
-  --dk-border: #383230;
+  /* Dark-palette tokens (used as dark: utilities) — deep plum/rose */
+  --dk-base: #211519;
+  --dk-alt: #281A20;
+  --dk-surface: #2F2027;
+  --dk-deep: #140C10;
+  --dk-text: #F6E7EC;
+  --dk-muted: #C29CA8;
+  --dk-subtle: #75606A;
+  --dk-border: #3F2D35;
 
   /* Inline-style overrides for dark mode */
-  --hero-texture: radial-gradient(ellipse at 60% 40%, #EDD9B420 0%, transparent 60%),
-    linear-gradient(135deg, #FAF6EF 0%, #E8D5B730 50%, #FAF6EF 100%);
-  --brand-block-bg: linear-gradient(160deg, #EDD9B4 0%, #E8E0D5 40%, #D4CDBA 100%);
+  --hero-texture: radial-gradient(ellipse at 60% 40%, #EFAAC860 0%, transparent 60%),
+    linear-gradient(135deg, #F6CADB 0%, #EFA9C870 50%, #F6CADB 100%);
+  --brand-block-bg: linear-gradient(160deg, #EFAAC8 0%, #E29BB6 40%, #D782A6 100%);
 }
 
 /* Class-based dark mode (applied to <html> by ThemeProvider) */
 .dark {
-  --hero-texture: radial-gradient(ellipse at 60% 40%, #C9A96E08 0%, transparent 60%),
-    linear-gradient(135deg, #1C1A18 0%, #282522 50%, #1C1A18 100%);
-  --brand-block-bg: linear-gradient(160deg, #282522 0%, #302D2A 40%, #252220 100%);
+  --hero-texture: radial-gradient(ellipse at 60% 40%, #DB7CA112 0%, transparent 60%),
+    linear-gradient(135deg, #211519 0%, #2F2027 50%, #211519 100%);
+  --brand-block-bg: linear-gradient(160deg, #2F2027 0%, #392731 40%, #2C1E25 100%);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -62,8 +62,8 @@
   --color-dk-subtle: var(--dk-subtle);
   --color-dk-border: var(--dk-border);
 
-  --font-display: var(--font-cormorant);
-  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-jost);
 }
 
 * {
@@ -77,9 +77,18 @@ html {
 body {
   background-color: var(--ivory);
   color: var(--charcoal);
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-jost), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headings: slight optical tightening for the serif.
+   (Tailwind `tracking-*` utilities still override where set.) */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.012em;
 }
 
 .dark body {

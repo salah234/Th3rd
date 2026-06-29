@@ -48,7 +48,7 @@ export default function CollectionCard({
                 ? undefined
                 : collection.accentColor
                 ? `linear-gradient(135deg, ${collection.accentColor}22 0%, ${collection.accentColor}44 100%)`
-                : "linear-gradient(135deg, #E8E0D5 0%, #EDD9B4 100%)",
+                : "linear-gradient(135deg, #F6DBE5 0%, #FAD6E3 100%)",
             }}
             aria-hidden={!collection.imageUrl}
           />

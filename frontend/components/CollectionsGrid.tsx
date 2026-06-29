@@ -4,31 +4,7 @@ import { EASE_LUXURY } from "@/lib/motion";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import CollectionCard from "@/components/CollectionCard";
-import { Collection } from "@/lib/types";
-
-const collections: Collection[] = [
-  {
-    id: "everyday-silk",
-    handle: "everyday-silk",
-    title: "Everyday Silk",
-    description: "Refined Essentials",
-    accentColor: "#C9A96E",
-  },
-  {
-    id: "occasion-wear",
-    handle: "occasion-wear",
-    title: "Occasion Wear",
-    description: "Celebration Pieces",
-    accentColor: "#8C7B6B",
-  },
-  {
-    id: "heritage-collection",
-    handle: "heritage",
-    title: "Heritage Collection",
-    description: "Timeless Craft",
-    accentColor: "#6B7B60",
-  },
-];
+import { collections } from "@/lib/data";
 
 export default function CollectionsGrid() {
   return (
