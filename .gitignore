@@ -3,4 +3,13 @@ node_modules/
 .DS_Store
 *.env.local
 *.env*.local
-.venv
+
+# VS Code — share the project interpreter config, ignore the rest
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# Claude Code local overrides
+.claude/settings.local.json
+
