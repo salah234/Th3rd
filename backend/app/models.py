@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from enum import Enum
+
 class Item(BaseModel):
     id: str
     title: str
@@ -6,11 +8,8 @@ class Item(BaseModel):
     price: float
     original_price: float
     currency: str
-    is_new: bool
-    is_bestseller: bool
     collection_id: str
     created_at: str
-
 
 
 class Collection(BaseModel):
@@ -44,7 +43,26 @@ class Client(BaseModel):
     strip_customer_id: str
     created_at: str
     
-    
+
+class OrderStatus(str, Enum):
+    pending = "pending"
+    paid = "paid"
+    fulfilled = "fulfilled"
+    cancelled = "cancelled"
+    refunded = "refunded"
+
+
+class Order(BaseModel):
+    id: str
+    client_id: str
+    cart_id: str
+    status: OrderStatus
+    total: float
+    currency: str = "USD"
+    stripe_payment_intent_id: str | None = None
+    created_at: str
+    updated_at: str | None = None
+
     
     
     
