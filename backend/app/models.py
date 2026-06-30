@@ -33,7 +33,6 @@ class CartItems(BaseModel) :
     id: str
     cart_id: str
     item_id: str
-    item_id: str
     quanity: int
     
 
