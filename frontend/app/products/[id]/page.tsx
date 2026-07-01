@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ProductView from "@/components/ProductView";
 import { getItems, getItemById } from "@/lib/data";
 
 interface ProductPageProps {
@@ -89,88 +90,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
               Continue Shopping
             </Link>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-              {/* Image */}
-              <div
-                className="relative overflow-hidden bg-warm-white dark:bg-dk-surface aspect-[3/4]"
-                style={{
-                  background: item.imageUrl
-                    ? undefined
-                    : placeholderGradient(item.id),
-                }}
-              >
-                {item.imageUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                )}
-              </div>
-
-              {/* Details */}
-              <div className="md:pt-6">
-                {item.subtitle && (
-                  <p className="text-[11px] tracking-[0.22em] uppercase text-soft-gold font-medium mb-4">
-                    {item.subtitle}
-                  </p>
-                )}
-                <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-light text-charcoal dark:text-dk-text leading-[1.1] mb-6">
-                  {item.title}
-                </h1>
-
-                {/* Price */}
-                <div className="flex items-baseline gap-3 mb-8">
-                  <span className="text-[20px] text-charcoal dark:text-dk-text font-medium">
-                    {price}
-                  </span>
-                  {originalPrice && (
-                    <span className="text-[16px] text-taupe dark:text-dk-subtle line-through">
-                      {originalPrice}
-                    </span>
-                  )}
-                </div>
-
-                {/* Color swatches */}
-                {item.colorOptions && item.colorOptions.length > 0 && (
-                  <div className="mb-8">
-                    <p className="text-[11px] tracking-[0.12em] uppercase text-taupe dark:text-dk-muted mb-3">
-                      Colours
-                    </p>
-                    <div
-                      className="flex items-center gap-2"
-                      role="list"
-                      aria-label="Available colours"
-                    >
-                      {item.colorOptions.map((color) => (
-                        <div
-                          key={color}
-                          role="listitem"
-                          title={color}
-                          aria-label={color}
-                          className="w-6 h-6 rounded-full border border-sand/60 dark:border-dk-border/60"
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Add to bag */}
-                <button
-                  type="button"
-                  className="w-full md:w-auto md:min-w-[280px] bg-charcoal dark:bg-dk-text text-ivory dark:text-dk-base text-[12px] tracking-[0.14em] uppercase py-4 px-10 font-medium hover:bg-ink dark:hover:opacity-90 transition-colors duration-200"
-                >
-                  Add to Bag
-                </button>
-
-                <p className="mt-8 text-[14px] leading-relaxed text-taupe dark:text-dk-muted max-w-md">
-                  Considered fabric, quiet colour, and a drape made to be worn for
-                  years. Each piece is finished by hand in small runs.
-                </p>
-              </div>
-            </div>
+            <ProductView
+              title={item.title}
+              subtitle={item.subtitle}
+              price={price}
+              originalPrice={originalPrice}
+              images={item.images ?? []}
+              colorOptions={item.colorOptions}
+              body={item.body}
+              placeholder={placeholderGradient(item.id)}
+            />
           </div>
         </section>
       </main>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Item } from "@/lib/types";
+import { urlFor } from "@/sanity/image";
 
 interface ProductCardProps {
   item: Item;
@@ -13,6 +14,22 @@ interface ProductCardProps {
 
 export default function ProductCard({ item, index = 0 }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
+  const [activeColor, setActiveColor] = useState<number | null>(null);
+
+  // Selected colourway's photo when it has one; otherwise the first image.
+  const activeImage =
+    activeColor !== null
+      ? (item.colorOptions?.[activeColor]?.image ?? item.images?.[0])
+      : item.images?.[0];
+
+  const imageUrl = activeImage
+    ? (urlFor(activeImage)
+        ?.width(800)
+        .height(1067)
+        .fit("crop")
+        .auto("format")
+        .url() ?? null)
+    : null;
 
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -50,11 +67,11 @@ export default function ProductCard({ item, index = 0 }: ProductCardProps) {
             className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{
               transform: hovered ? "scale(1.04)" : "scale(1)",
-              background: item.imageUrl
-                ? undefined
+              background: imageUrl
+                ? `url(${imageUrl}) center / cover no-repeat`
                 : generatePlaceholderGradient(item.id),
             }}
-            aria-hidden={!item.imageUrl}
+            aria-hidden={!imageUrl}
           >
             {/* Subtle texture */}
             <svg className="absolute inset-0 w-full h-full opacity-[0.03]" aria-hidden>
@@ -126,17 +143,30 @@ export default function ProductCard({ item, index = 0 }: ProductCardProps) {
 
           {/* Color swatches */}
           {item.colorOptions && item.colorOptions.length > 0 && (
-            <div className="flex items-center gap-1.5 mb-3" role="list" aria-label="Available colors">
-              {item.colorOptions.map((color) => (
-                <div
-                  key={color}
-                  role="listitem"
-                  title={color}
-                  className="w-3.5 h-3.5 rounded-full border border-sand/60 dark:border-dk-border/60"
-                  style={{ backgroundColor: color }}
-                  aria-label={color}
-                />
-              ))}
+            <div className="flex items-center gap-1.5 mb-3" role="radiogroup" aria-label="Available colors">
+              {item.colorOptions.map((color, i) => {
+                const selected = activeColor === i;
+                return (
+                  <button
+                    key={color.name}
+                    type="button"
+                    role="radio"
+                    aria-checked={selected}
+                    title={color.name}
+                    aria-label={color.name}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveColor(selected ? null : i);
+                    }}
+                    className={`w-3.5 h-3.5 rounded-full border transition-transform duration-200 hover:scale-125 ${
+                      selected
+                        ? "border-charcoal dark:border-dk-text ring-1 ring-offset-1 ring-charcoal dark:ring-dk-text ring-offset-ivory dark:ring-offset-dk-base"
+                        : "border-sand/60 dark:border-dk-border/60"
+                    }`}
+                    style={{ backgroundColor: color.hex }}
+                  />
+                );
+              })}
             </div>
           )}
 

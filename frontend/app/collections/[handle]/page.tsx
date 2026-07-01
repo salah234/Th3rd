@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import CollectionLayout from "@/components/CollectionLayout";
 import {
   getCollections,
   getCollectionByHandle,
   getItemsByCollection,
 } from "@/lib/data";
+import { urlFor } from "@/sanity/image";
 
 interface CollectionPageProps {
   params: Promise<{ handle: string }>;
@@ -45,6 +47,14 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
   const products = await getItemsByCollection(collection);
   const accent = collection.accentColor ?? "#DB7CA1";
+  const heroUrl = collection.heroImage
+    ? (urlFor(collection.heroImage)
+        ?.width(1920)
+        .height(900)
+        .fit("crop")
+        .auto("format")
+        .url() ?? null)
+    : null;
 
   return (
     <>
@@ -54,10 +64,12 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
         <section
           className="relative overflow-hidden px-6 md:px-10 pt-32 md:pt-44 pb-16 md:pb-24"
           style={{
-            background: `linear-gradient(135deg, ${accent}22 0%, ${accent}44 100%)`,
+            background: heroUrl
+              ? `linear-gradient(135deg, ${accent}22 0%, ${accent}44 100%), url(${heroUrl}) center / cover no-repeat`
+              : `linear-gradient(135deg, ${accent}22 0%, ${accent}44 100%)`,
           }}
         >
-          <div className="max-w-screen-xl mx-auto">
+          <div className="max-w-screen-xl mx-auto relative">
             <Link
               href="/collections"
               className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] uppercase text-taupe dark:text-dk-muted hover:text-charcoal dark:hover:text-dk-text transition-colors duration-200 font-medium mb-8"
@@ -116,6 +128,11 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             )}
           </div>
         </section>
+
+        {/* Editorial layout authored in Sanity */}
+        {collection.layout && collection.layout.length > 0 && (
+          <CollectionLayout sections={collection.layout} />
+        )}
       </main>
       <Footer />
     </>

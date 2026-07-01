@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Collection } from "@/lib/types";
+import { urlFor } from "@/sanity/image";
 
 interface CollectionCardProps {
   collection: Collection;
@@ -18,6 +19,15 @@ export default function CollectionCard({
   variant = "portrait",
 }: CollectionCardProps) {
   const [hovered, setHovered] = useState(false);
+
+  const heroUrl = collection.heroImage
+    ? (urlFor(collection.heroImage)
+        ?.width(1200)
+        .height(variant === "landscape" ? 675 : 1600)
+        .fit("crop")
+        .auto("format")
+        .url() ?? null)
+    : null;
 
   return (
     <motion.article
@@ -44,13 +54,13 @@ export default function CollectionCard({
             className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{
               transform: hovered ? "scale(1.05)" : "scale(1)",
-              background: collection.imageUrl
-                ? undefined
+              background: heroUrl
+                ? `url(${heroUrl}) center / cover no-repeat`
                 : collection.accentColor
                 ? `linear-gradient(135deg, ${collection.accentColor}22 0%, ${collection.accentColor}44 100%)`
                 : "linear-gradient(135deg, #F6DBE5 0%, #FAD6E3 100%)",
             }}
-            aria-hidden={!collection.imageUrl}
+            aria-hidden={!heroUrl}
           />
 
           {/* Dark overlay for text readability */}
