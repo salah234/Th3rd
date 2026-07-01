@@ -1,15 +1,16 @@
 from pydantic import BaseModel
 class Item(BaseModel):
+    # Mirrors the actual public.items table (Sanity-backed: content lives in Sanity,
+    # Supabase holds commerce fields + a sanity_id pointer + handle).
     id: str
     title: str
-    subtitle: str
     price: float
-    original_price: float
+    original_price: float | None = None
     currency: str
-    is_new: bool
-    is_bestseller: bool
-    collection_id: str
+    sanity_id: str
+    collection_id: str | None = None
     created_at: str
+    handle: str | None = None
 
 
 

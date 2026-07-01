@@ -4,9 +4,15 @@ import { EASE_LUXURY } from "@/lib/motion";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import CollectionCard from "@/components/CollectionCard";
-import { collections } from "@/lib/data";
+import type { Collection } from "@/lib/types";
 
-export default function CollectionsGrid() {
+interface CollectionsGridProps {
+  collections: Collection[];
+}
+
+export default function CollectionsGrid({ collections }: CollectionsGridProps) {
+  const [featured, ...rest] = collections;
+
   return (
     <section
       className="py-24 md:py-32 px-6 md:px-10 bg-cream dark:bg-dk-alt"
@@ -35,25 +41,25 @@ export default function CollectionsGrid() {
         {/* Grid: large card + two smaller */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
           {/* Large featured collection */}
-          <div className="md:row-span-2">
-            <CollectionCard
-              collection={collections[0]}
-              index={0}
-              variant="portrait"
-            />
-          </div>
+          {featured && (
+            <div className="md:row-span-2">
+              <CollectionCard
+                collection={featured}
+                index={0}
+                variant="portrait"
+              />
+            </div>
+          )}
 
           {/* Two smaller on the right */}
-          <CollectionCard
-            collection={collections[1]}
-            index={1}
-            variant="landscape"
-          />
-          <CollectionCard
-            collection={collections[2]}
-            index={2}
-            variant="landscape"
-          />
+          {rest.slice(0, 2).map((collection, i) => (
+            <CollectionCard
+              key={collection.id}
+              collection={collection}
+              index={i + 1}
+              variant="landscape"
+            />
+          ))}
         </div>
 
         {/* CTA */}

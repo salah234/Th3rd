@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from app.supa import get_client
-from app.models import Collection, Item
+from app.models import Collection
 router = APIRouter(prefix="/collections", tags=["collections"])
 
 

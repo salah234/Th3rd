@@ -4,9 +4,13 @@ import { EASE_LUXURY } from "@/lib/motion";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import { featuredItems } from "@/lib/data";
+import type { Item } from "@/lib/types";
 
-export default function FeaturedProducts() {
+interface FeaturedProductsProps {
+  items: Item[];
+}
+
+export default function FeaturedProducts({ items }: FeaturedProductsProps) {
   return (
     <section
       className="py-24 md:py-32 px-6 md:px-10 bg-ivory dark:bg-dk-base"
@@ -42,7 +46,7 @@ export default function FeaturedProducts() {
 
         {/* Product grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {featuredItems.map((item, i) => (
+          {items.map((item, i) => (
             <ProductCard key={item.id} item={item} index={i} />
           ))}
         </div>

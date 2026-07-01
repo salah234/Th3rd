@@ -1,0 +1,14 @@
+# Runtime dependencies (mirrors pyproject.toml [project].dependencies)
+fastapi==0.138.1
+uvicorn[standard]==0.49.0
+httpx==0.28.1
+pydantic==2.13.4
+pydantic-settings==2.14.2
+supabase==2.31.0
+
+# Dev dependencies (pyproject.toml [project.optional-dependencies].dev)
+# Install with: pip install -r requirements-dev.txt  (or keep here for convenience)
+pytest==9.1.1
+pytest-asyncio==1.4.0
+ruff==0.15.20
+mypy==2.1.0

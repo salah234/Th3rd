@@ -8,15 +8,21 @@ import Footer from "@/components/Footer";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import CollectionsGrid from "@/components/CollectionsGrid";
 import BrandStory from "@/components/BrandStory";
+import { getCollections, getFeaturedItems } from "@/lib/data";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [collections, featuredItems] = await Promise.all([
+    getCollections(),
+    getFeaturedItems(),
+  ]);
+
   return (
     <>
       <Navigation />
       <main>
         <HeroSection />
-        <FeaturedProducts />
-        <CollectionsGrid />
+        <FeaturedProducts items={featuredItems} />
+        <CollectionsGrid collections={collections} />
         <BrandStory />
         <NewsletterSection />
       </main>

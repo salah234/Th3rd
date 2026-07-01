@@ -4,7 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import PageHeader from "@/components/PageHeader";
-import { items, collections } from "@/lib/data";
+import { getItems, getCollections } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "New Arrivals — Th3rd",
@@ -12,12 +12,17 @@ export const metadata: Metadata = {
     "The latest pieces from Th3rd — newly landed silks, occasion veils, and heritage wraps.",
 };
 
-// Newest pieces first, full catalogue follows.
-const sortedItems = [...items].sort(
-  (a, b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)),
-);
+export default async function NewArrivalsPage() {
+  const [collections, items] = await Promise.all([
+    getCollections(),
+    getItems(),
+  ]);
 
-export default function NewArrivalsPage() {
+  // Newest pieces first, full catalogue follows.
+  const sortedItems = [...items].sort(
+    (a, b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)),
+  );
+
   return (
     <>
       <Navigation />

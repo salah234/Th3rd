@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import {
-  collections,
+  getCollections,
   getCollectionByHandle,
   getItemsByCollection,
 } from "@/lib/data";
@@ -14,7 +14,8 @@ interface CollectionPageProps {
   params: Promise<{ handle: string }>;
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const collections = await getCollections();
   return collections.map((collection) => ({
     handle: collection.handle ?? collection.id,
   }));
@@ -24,7 +25,7 @@ export async function generateMetadata({
   params,
 }: CollectionPageProps): Promise<Metadata> {
   const { handle } = await params;
-  const collection = getCollectionByHandle(handle);
+  const collection = await getCollectionByHandle(handle);
   if (!collection) {
     return { title: "Collection Not Found — Th3rd" };
   }
@@ -36,13 +37,13 @@ export async function generateMetadata({
 
 export default async function CollectionPage({ params }: CollectionPageProps) {
   const { handle } = await params;
-  const collection = getCollectionByHandle(handle);
+  const collection = await getCollectionByHandle(handle);
 
   if (!collection) {
     notFound();
   }
 
-  const products = getItemsByCollection(collection.id);
+  const products = await getItemsByCollection(collection);
   const accent = collection.accentColor ?? "#DB7CA1";
 
   return (

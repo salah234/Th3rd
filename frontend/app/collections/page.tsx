@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CollectionCard from "@/components/CollectionCard";
 import PageHeader from "@/components/PageHeader";
-import { collections } from "@/lib/data";
+import { getCollections } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Collections — Th3rd",
@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     "Explore the Th3rd collections — refined everyday silks, occasion pieces, and timeless heritage craft.",
 };
 
-export default function CollectionsPage() {
+export default async function CollectionsPage() {
+  const collections = await getCollections();
+
   return (
     <>
       <Navigation />
